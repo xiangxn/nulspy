@@ -20,6 +20,7 @@ setup(
     author='Necklace',
     author_email='xnxiangxn@hotmail.com',
     url='https://github.com/xiangxn/nulspy',
+    license="MIT",
     packages=find_packages(),
     test_suite='nose.collector',
     install_requires=[
