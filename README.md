@@ -1,3 +1,5 @@
+pip3 install git+https://github.com/xiangxn/nulspy.git
+
 transfer:
 ```
 outputs = [{
