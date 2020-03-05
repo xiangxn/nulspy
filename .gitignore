@@ -1,0 +1,7 @@
+*pyc
+*bak
+dist/
+build/
+libeospy.egg-info
+.vscode/
+venv/
