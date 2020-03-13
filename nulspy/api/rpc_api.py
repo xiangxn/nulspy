@@ -2,11 +2,11 @@ import asyncio
 import aiohttp
 
 class RpcAPI:
-    def __init__(self, url, chain_id):
+    def __init__(self, url, chain_id, address_prefix = "tNULS"):
         self.url = url
         self.chain_id = chain_id
         self.asset_id = 1
-        self.address_prefix = "tNULS"
+        self.address_prefix = address_prefix
         self.headers = {'User-Agent': 'curl/7.35.0', 'Accept': '*/*','Content-Type': 'application/json;charset=UTF-8'}
         self.proc_id = 0
         
@@ -23,6 +23,9 @@ class RpcAPI:
                         result = await res.json()
                         if "result" in result:
                             result = result['result']
+                        elif "error" in result:
+                            print("api error:", result['error']['message'])
+                            result = None
             except Exception as e:
                 pass
         return result
@@ -42,7 +45,7 @@ class RpcAPI:
         if result:
             self.chain_id = result['chainId']
             self.asset_id = result['defaultAsset']['assetId']
-            self.address_prefix = result['addressPrefix']
+            #self.address_prefix = result['addressPrefix']
         return result
         
             
@@ -54,6 +57,11 @@ class RpcAPI:
     
     async def getTx(self, trx_id):
         pars = self._create_pars("getTx", [self.chain_id, trx_id])
+        result = await self._post(pars)
+        return result
+    
+    async def getAccountTxs(self, addr, page=1, page_size=10, tx_type=2, start_block=-1, end_block=-1):
+        pars = self._create_pars("getAccountTxs", [self.chain_id, page, page_size, addr, tx_type, start_block, end_block])
         result = await self._post(pars)
         return result
     
