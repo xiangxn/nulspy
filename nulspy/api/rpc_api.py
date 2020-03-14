@@ -49,7 +49,7 @@ class RpcAPI:
         return result
     
     async def getInfo(self):
-        pars = self._create_pars("getInfo")
+        pars = self._create_pars("getInfo", [self.chain_id])
         result = await self._post(pars)
         if result:
             self.chain_id = result['chainId']
