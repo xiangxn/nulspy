@@ -39,8 +39,17 @@ class RpcAPI:
         }
         return data
     
-    async def getInfo(self):
+    async def getChainInfo(self):
         pars = self._create_pars("getChainInfo")
+        result = await self._post(pars)
+        if result:
+            self.chain_id = result['chainId']
+            self.asset_id = result['defaultAsset']['assetId']
+            #self.address_prefix = result['addressPrefix']
+        return result
+    
+    async def getInfo(self):
+        pars = self._create_pars("getInfo")
         result = await self._post(pars)
         if result:
             self.chain_id = result['chainId']
