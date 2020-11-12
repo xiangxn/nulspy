@@ -27,7 +27,8 @@ async def getInfos():
     
 
 def getTasks(loop):
-    tasks = [loop.create_task(run_test())]
+    tasks = []
+    tasks += [loop.create_task(run_test())]
     tasks += [loop.create_task(getInfos())]
     return tasks
     
