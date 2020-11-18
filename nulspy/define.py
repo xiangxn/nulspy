@@ -16,3 +16,6 @@ class Define:
     CHEAP_UNIT_FEE = 100000
     UNIT_FEE = 1000000
     KB = 1024
+    CONTRACT_MINIMUM_PRICE = 25
+    
+

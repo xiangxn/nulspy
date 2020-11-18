@@ -107,34 +107,3 @@ class NulsSignature(BaseNulsData):
             prefix = Define.NETWORKS[chain_id]
         address = Address.addressFromHash(addr_hash, prefix=prefix)
         return address
-        
-        
-class NulsDigestData(BaseNulsData):
-    HASH_LENGTH = 34
-    DIGEST_ALG_SHA256 = 0
-    DIGEST_ALG_SHA160 = 1
-
-    def __init__(self, data=None, alg_type=None):
-        self.digest_bytes = None
-        self.alg_type = None
-
-        if data is not None and alg_type is None:
-            self.parse(data)
-
-        elif data is not None and alg_type is not None:
-            self.digest_bytes = data
-            self.alg_type = alg_type
-
-    @property
-    def size(self):
-        return self.HASH_LENGTH
-
-    def parse(self, buffer, cursor=0):
-        self.alg_type = buffer[cursor]
-        pos, self.digest_bytes = Coder.readByLength(buffer, cursor=cursor+1)
-
-    def serialize(self):
-        return bytes([self.alg_type, len(self.digest_bytes)]) + self.digest_bytes
-
-    def __str__(self):
-        return self.serialize().hex()
