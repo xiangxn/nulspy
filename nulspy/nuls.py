@@ -107,6 +107,7 @@ class NULS:
         balanceInfo = await self.api.getBalance(fromAddress, asset_chain=self.chain_id)
         gasLimit = await self.estimateContractCallGas(contractCall['contractAddress'],
                                                       contractCall['methodName'],
+                                                      addr=fromAddress,
                                                       value=contractCall['value'],
                                                       args=contractCall['args'],
                                                       methodDesc=contractCall['methodDesc'])
