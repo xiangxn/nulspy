@@ -103,7 +103,7 @@ class NULS:
             return result['result']
         return None
 
-    async def callContract(self, fromAddress, contractCall, remark="", assetsChainId=1, assetsId=1):
+    async def callContract(self, fromAddress, contractCall, remark="", assetsChainId=1, assetsId=1, privateKey=None):
         balanceInfo = await self.api.getBalance(fromAddress, asset_chain=self.chain_id)
         gasLimit = await self.estimateContractCallGas(contractCall['contractAddress'],
                                                       contractCall['methodName'],
@@ -172,7 +172,9 @@ class NULS:
                 "coinTos": outputs,
                 'txData': data
             })
-        await tx.signTx(self.private_key)
+        if not privateKey:
+            privateKey = self.private_key
+        await tx.signTx(privateKey)
         tx_hex = (await tx.serialize()).hex()
         result = await self.api.broadcast(tx_hex)
         if result and "hash" in result:
