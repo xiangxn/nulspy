@@ -116,6 +116,7 @@ class NULS:
                                                              contractCall['methodName'],
                                                              contractCall['methodDesc'],
                                                              chainId=self.chain_id)
+        args = self.twoDimensionalArray(contractCall['args'], argsType)
         data = {
             'chainId': self.chain_id,
             'sender': fromAddress,
@@ -125,7 +126,7 @@ class NULS:
             'price': Define.CONTRACT_MINIMUM_PRICE,
             'methodName': contractCall['methodName'],
             'methodDesc': contractCall['methodDesc'],
-            'args': self.twoDimensionalArray(contractCall['args'], argsType)
+            'args': args if args else []
         }
         gasFee = gasLimit * data['price']
         amount = data['value'] + gasFee
