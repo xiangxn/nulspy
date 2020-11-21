@@ -91,7 +91,5 @@ def getTasks(loop):
     tasks += [loop.create_task(callContract())]
     return tasks
 
-
 loop.run_until_complete(asyncio.wait(getTasks(loop)))
-loop.run_forever()
 loop.close()
