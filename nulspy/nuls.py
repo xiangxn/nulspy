@@ -143,7 +143,7 @@ class NULS:
             'locked': 0,
             'nonce': balanceInfo['nonce']
         }]
-        if balanceInfo['balance'] < inputs[0]['amount']:
+        if int(balanceInfo['balance']) < inputs[0]['amount']:
             raise ValueError("Your balance is not enough.")
         outputs = []
         if "toAddress" in transferInfo and transferInfo['toAddress']:
