@@ -207,3 +207,10 @@ class NULS:
         if result and "txHex" in result:
             return result
         return None
+
+    async def getContractTxResult(self, trxHash, chainId=None) -> bool:
+        pars = self.api.getContractTxResult(trxHash, chainId=self.chain_id)
+        result = await self._post(pars)
+        if result and "success" in result and result['success']:
+            return True
+        return False

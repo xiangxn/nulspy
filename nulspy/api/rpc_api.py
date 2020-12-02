@@ -116,3 +116,7 @@ class RpcAPI:
             [self._get_chain_id(chain_id), sender, senderBalance, nonce, value, contractAddress, gasLimit, methodName, methodDesc, args, argsType, remark])
         print("pars: ", pars)
         return await self._post(pars)
+    
+    async def getContractTxResult(self, trxHash, chainId=None):
+        pars = self._create_pars("getContractTxResult", [self._get_chain_id(chainId), trxHash])
+        return await self._post(pars)
