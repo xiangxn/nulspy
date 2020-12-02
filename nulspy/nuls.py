@@ -209,8 +209,7 @@ class NULS:
         return None
 
     async def getContractTxResult(self, trxHash, chainId=None) -> bool:
-        pars = self.api.getContractTxResult(trxHash, chainId=self.chain_id)
-        result = await self._post(pars)
+        result = self.api.getContractTxResult(trxHash, chainId=self.chain_id)
         if result and "success" in result and result['success']:
             return True
         return False
